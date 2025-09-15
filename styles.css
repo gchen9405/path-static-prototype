@@ -1,0 +1,243 @@
+:root {
+  /* Design tokens will be updated to match the mockup exactly after review */
+  --color-background: #ffffff;
+  --color-text: #111111;
+  --device-width: 390px;   /* iPhone 12/13/14 base width. Will adjust to mockup if different */
+  --device-height: 844px;  /* iPhone 12/13/14 base height. Will adjust to mockup if different */
+  --frame-radius: 34px;
+  --frame-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
+  --color-penn-blue: #012a5b;
+  --color-penn-red: #b3001b;
+  --color-card: #f2f4f7;
+  --color-stroke: #d9dde5;
+  --color-muted: #6b7280;
+  --color-button: #0f2a52;
+  --color-button-text: #ffffff;
+  --color-chip: #e5e7eb;
+  --color-chip-text: #111827;
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+  --shadow-md: 0 2px 6px rgba(0,0,0,.12);
+  --shadow-lg: 0 6px 18px rgba(0,0,0,.16);
+}
+
+/* CSS reset (minimal) */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: #0b0b0b; /* Surrounding backdrop so the device frame is visible */
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.frame {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.device {
+  position: relative;
+  width: var(--device-width);
+  height: var(--device-height);
+  background: var(--color-background);
+  border-radius: var(--frame-radius);
+  box-shadow: var(--frame-shadow);
+  overflow: hidden;
+  isolation: isolate; /* So blending overlays don't affect outside */
+}
+
+.design-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Keep proportions of the mockup image */
+  opacity: 0; /* Hidden by default; toggle to show for tracing */
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Show overlay when the toggle is checked */
+#toggle-overlay:checked ~ .device .design-overlay { opacity: .35; }
+
+.app {
+  position: relative;
+  z-index: 20; /* Above overlay so we can see our implementation, unless overlay is visible for tracing */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility classes for layout while implementing; remove if not needed */
+.row { display: flex; align-items: center; }
+.col { display: flex; flex-direction: column; }
+.spacer { flex: 1 1 auto; }
+.hidden { display: none !important; }
+
+/* Placeholder sections to be replaced with exact components after we view the mockup */
+.placeholder {
+  outline: 1px dashed rgba(0,0,0,.2);
+  background: rgba(255,0,0,.02);
+}
+
+@media (prefers-color-scheme: dark) {
+  body { background: #000; }
+}
+
+/* ---------- Status bar ---------- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px 4px;
+  color: #fff;
+  background: var(--color-penn-blue);
+  font-weight: 600;
+}
+.status-bar .sb-left { font-size: 14px; letter-spacing: .2px; }
+.status-bar .sb-right { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.status-bar .icon-signal { width: 18px; height: 10px; background: currentColor; mask: linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0); opacity: .8; border-radius: 2px; }
+.status-bar .icon-battery { display: inline-flex; width: 26px; height: 12px; border: 1.5px solid currentColor; border-radius: 3px; position: relative; }
+.status-bar .icon-battery i { display: block; background: currentColor; height: 100%; border-radius: 2px; }
+.status-bar .icon-battery:after { content: ""; position: absolute; right: -3px; top: 3px; width: 2px; height: 6px; background: currentColor; border-radius: 1px; }
+.status-bar .sb-net { opacity: .9; }
+
+/* ---------- Penn header ---------- */
+.penn-header {
+  background: var(--color-penn-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+.brand { display: inline-flex; align-items: center; gap: 8px; }
+.logo-shield { width: 22px; height: 22px; object-fit: contain; }
+.logo-wordmark { font-size: 24px; font-weight: 700; letter-spacing: .2px; }
+.welcome { font-size: 13px; opacity: .9; }
+.welcome strong { font-weight: 700; }
+
+/* ---------- Red banner ---------- */
+.search-banner {
+  background: var(--color-penn-red);
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* ---------- Search panel ---------- */
+.search-panel { padding: 10px 12px 18px; background: #f7f7fb; position: relative; }
+.cta-row { display: block; margin-bottom: 12px; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: 700;
+  letter-spacing: .5px;
+  box-shadow: var(--shadow-sm);
+}
+.btn.primary { background: var(--color-button); color: var(--color-button-text); }
+.search-bar {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: center;
+  height: 44px;
+  border-radius: 8px;
+  border: 0;
+  overflow: hidden;
+  background: #0d203f;
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.chevron-seg { display: grid; place-items: center; height: 100%; background: #0a1a33; position: relative; }
+.chevron-seg:before { content: ""; width: 10px; height: 10px; border-right: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg); }
+.search-label { text-align: center; font-weight: 800; letter-spacing: .6px; }
+.btn.pill { background: #e6ecf5; color: #0d203f; border-radius: 999px; padding: 0 14px; height: 30px; font-size: 12px; font-weight: 800; letter-spacing: .6px; }
+.btn.pill.sm { height: 28px; }
+
+.advanced-label { margin-top: 10px; color: #6c7690; font-size: 12px; font-weight: 800; letter-spacing: .6px; }
+
+.filters-card {
+  margin-top: 6px;
+  background: #ffffff;
+  border: 1px solid var(--color-stroke);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+  padding: 10px;
+}
+.filters-top-row { display: flex; justify-content: space-between; align-items: center; }
+.checkbox { display: inline-flex; gap: 8px; align-items: center; font-size: 14px; color: #1f2937; }
+.checkbox input { width: 18px; height: 18px; }
+
+.filters-grid { display: block; margin-top: 10px; }
+.select-stack { display: grid; gap: 12px; }
+.select {
+  background: #f8fafc;
+  border: 1px solid var(--color-stroke);
+  height: 42px;
+  border-radius: 8px;
+  padding: 0 12px;
+  text-align: left;
+  color: #374151;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.select .caret { width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-top: 6px solid #6b7280; }
+
+.select--multiselect {
+  gap: 10px;
+}
+.select--multiselect .select-label {
+  color: #111827;
+}
+.select--multiselect .chips { margin-left: auto; display: inline-flex; flex-wrap: wrap; gap: 6px; }
+
+.field-group { margin-top: 12px; }
+.field-label { display: block; margin-bottom: 6px; color: #111827; font-weight: 600; }
+
+.multiselect {
+  background: #f8fafc;
+  border: 1px solid var(--color-stroke);
+  border-radius: 8px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+}
+.icon-search { width: 18px; height: 18px; border: 2px solid #6b7280; border-radius: 50%; position: relative; margin-left: 2px; }
+.icon-search:after { content: ""; position: absolute; width: 8px; height: 2px; background: #6b7280; bottom: -5px; right: -4px; transform: rotate(45deg); border-radius: 2px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip { background: var(--color-chip); color: var(--color-chip-text); border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 600; }
+.chip i { margin-left: 6px; opacity: .6; font-style: normal; }
+
+.dropdown {
+  margin-top: 6px;
+  background: #ffffff;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
+  max-height: 140px;
+  overflow: auto;
+  box-shadow: var(--shadow-sm);
+}
+.course-attr { margin-top: 12px; }
+.option { padding: 6px 8px; font-size: 13px; color: #111827; }
+.option.selected { background: #2b4b83; color: #fff; }
+
+
