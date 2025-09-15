@@ -6,7 +6,7 @@
   <title>UPenn Course Registration — Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Fonts will be set to match the mockup after we inspect the image -->
+
   <link rel="stylesheet" href="./styles.css">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -17,13 +17,11 @@
   <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
   <link rel="icon" href="data:,">
   <style>
-    /* Optional: Hide the overlay toggle when printing screenshots */
     @media print {
       .overlay-toggle { display: none !important; }
     }
   </style>
   <script>
-    // Keyboard shortcut: press "o" to toggle the overlay
     document.addEventListener('DOMContentLoaded', function () {
       var checkbox = document.getElementById('toggle-overlay');
       document.addEventListener('keydown', function (ev) {
@@ -33,13 +31,8 @@
       });
     });
   </script>
-  <!--
-    Development overlay notes:
-    - The overlay image points to the PNG in this folder. Its name contains spaces and a #, so the URL is encoded as HCI%20HW%20%231.png.
-    - Use the labeled switch or press the "o" key to toggle the overlay on/off while aligning elements.
-  -->
+
   <style>
-    /* Keep a minimal amount of inline CSS so the overlay control is usable even if styles.css fails to load */
     .overlay-toggle {
       position: fixed;
       top: 12px;
@@ -57,13 +50,11 @@
   </style>
   <noscript>
     <style>
-      /* If JS is disabled, keep the overlay visible and remove the toggle label */
       .overlay-toggle { display: none !important; }
       .design-overlay { opacity: .35 !important; }
     </style>
   </noscript>
   
-  <!-- Accessibility: landmark and language are set; additional ARIA will be added to match interactions if needed. -->
 </head>
 <body>
   <div class="frame">
@@ -71,10 +62,8 @@
     <label for="toggle-overlay" class="overlay-toggle" title="Toggle design overlay (O)">Overlay</label>
 
     <div class="device" role="region" aria-label="Device viewport">
-      <!-- The mockup image overlay to trace and align UI -->
       <img class="design-overlay" src="HCI%20HW%20%231.png" alt="Design overlay">
 
-      <!-- App content container; will be populated to match the mockup exactly -->
       <main class="app" role="main" aria-label="UPenn Course Registration App">
         <!-- iOS-style status bar approximation -->
         <div class="status-bar" aria-hidden="true">
