@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>UPenn Course Registration — Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Fonts will be set to match the mockup after we inspect the image -->
+  <link rel="stylesheet" href="./styles.css">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="UPenn Courses">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+  <link rel="icon" href="data:,">
+  <style>
+    /* Optional: Hide the overlay toggle when printing screenshots */
+    @media print {
+      .overlay-toggle { display: none !important; }
+    }
+  </style>
+  <script>
+    // Keyboard shortcut: press "o" to toggle the overlay
+    document.addEventListener('DOMContentLoaded', function () {
+      var checkbox = document.getElementById('toggle-overlay');
+      document.addEventListener('keydown', function (ev) {
+        if ((ev.key === 'o' || ev.key === 'O') && !ev.metaKey && !ev.ctrlKey && !ev.altKey) {
+          checkbox.checked = !checkbox.checked;
+        }
+      });
+    });
+  </script>
+  <!--
+    Development overlay notes:
+    - The overlay image points to the PNG in this folder. Its name contains spaces and a #, so the URL is encoded as HCI%20HW%20%231.png.
+    - Use the labeled switch or press the "o" key to toggle the overlay on/off while aligning elements.
+  -->
+  <style>
+    /* Keep a minimal amount of inline CSS so the overlay control is usable even if styles.css fails to load */
+    .overlay-toggle {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 2000;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      cursor: pointer;
+      user-select: none;
+    }
+    #toggle-overlay { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  </style>
+  <noscript>
+    <style>
+      /* If JS is disabled, keep the overlay visible and remove the toggle label */
+      .overlay-toggle { display: none !important; }
+      .design-overlay { opacity: .35 !important; }
+    </style>
+  </noscript>
+  
+  <!-- Accessibility: landmark and language are set; additional ARIA will be added to match interactions if needed. -->
+</head>
+<body>
+  <div class="frame">
+    <input type="checkbox" id="toggle-overlay" aria-label="Toggle design overlay">
+    <label for="toggle-overlay" class="overlay-toggle" title="Toggle design overlay (O)">Overlay</label>
+
+    <div class="device" role="region" aria-label="Device viewport">
+      <!-- The mockup image overlay to trace and align UI -->
+      <img class="design-overlay" src="HCI%20HW%20%231.png" alt="Design overlay">
+
+      <!-- App content container; will be populated to match the mockup exactly -->
+      <main class="app" role="main" aria-label="UPenn Course Registration App">
+        <!-- iOS-style status bar approximation -->
+        <div class="status-bar" aria-hidden="true">
+          <div class="sb-left">11:19</div>
+          <div class="sb-right">
+            <span class="icon-signal" aria-hidden="true"></span>
+            <span class="sb-net">5G</span>
+            <span class="icon-battery" aria-hidden="true"><i style="width:65%"></i></span>
+          </div>
+        </div>
+
+        <!-- Penn header -->
+        <header class="penn-header" role="banner">
+          <div class="brand">
+            <img class="logo-shield" src="./assets/penn-logo.png" alt="Penn logo">
+            <div class="logo-wordmark" aria-label="Penn">Penn</div>
+          </div>
+          <div class="welcome">Welcome, <strong>Gordon</strong></div>
+        </header>
+
+        <!-- Red search banner title -->
+        <div class="search-banner">Search Classes</div>
+
+        <!-- Search and Advanced Filters Panel -->
+        <section class="search-panel" aria-label="Search and filters">
+          <div class="cta-row">
+            <button class="search-bar" aria-label="Search">
+              <span class="chevron-seg" aria-hidden="true"></span>
+              <span class="search-label">SEARCH</span>
+            </button>
+          </div>
+
+          <div class="advanced-label">ADVANCED SEARCH</div>
+
+          <div class="filters-card" role="group" aria-label="Advanced filters">
+            <div class="filters-top-row">
+              <label class="checkbox">
+                <input type="checkbox"> <span>Exclude Times</span>
+              </label>
+              <button class="btn pill sm">EDIT</button>
+            </div>
+
+            <div class="filters-grid">
+              <div class="select-stack">
+                <button class="select">Subject <span class="caret" aria-hidden="true"></span></button>
+                <button class="select">School <span class="caret" aria-hidden="true"></span></button>
+                <button class="select">Level <span class="caret" aria-hidden="true"></span></button>
+                <button class="select">Schedule Type <span class="caret" aria-hidden="true"></span></button>
+                <button class="select">Credit <span class="caret" aria-hidden="true"></span></button>
+              </div>
+            </div>
+            <div class="course-attr">
+              <div class="select select--multiselect">
+                <span class="select-label">Course Attribute</span>
+                <div class="chips" role="list">
+                  <span class="chip" role="listitem">CIS UTE <i aria-hidden="true">×</i></span>
+                  <span class="chip" role="listitem">COGS <i aria-hidden="true">×</i></span>
+                </div>
+              </div>
+              <div class="dropdown" role="listbox" aria-label="Course Attribute options">
+                <div class="option selected" role="option" aria-selected="true">Course Attribute</div>
+                <div class="option" role="option">Academically Based Community Service Courses (UNAS)</div>
+                <div class="option" role="option">AFRC African American Studies (AAFA)</div>
+                <div class="option" role="option">AFRC African Diaspora Studies (AAFD)</div>
+                <div class="option" role="option">AFRC African Studies (AAFS)</div>
+                <div class="option" role="option">AFRC History Course (AAFO)</div>
+                <div class="option" role="option">AFRC Humanities (AAFH)</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
+
+
